@@ -1,0 +1,19 @@
+.weather-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .weather-container img {
+    width: 50px; /* Adjust size if necessary */
+    height: auto;
+  }
+  
+  .weather-container h1 {
+   font-size: 1.5rem;
+   color: rgba(0, 153, 255, 0.582);
+    margin-top: -13px; /* Adjust space between the icon and temperature if necessary */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
