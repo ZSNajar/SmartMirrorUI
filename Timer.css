@@ -1,9 +1,7 @@
-/* Timer.css */
 .timer-button-container {
     position: relative; 
   
 }
-
 
 .timer-panel {
     position: absolute;
@@ -52,3 +50,4 @@
     50% { color: transparent; }
     100% { color: #fff; }
 }
+
