@@ -14,7 +14,7 @@ const StickyNote = ({ note, onRemove }) => {
       hour12: true,
     });
     setDateTime(formattedDateTime);
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []); 
 
   return (
     <Draggable handle=".header">
