@@ -1,38 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPowerOff, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faSun, faClock, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import TimeDate from './TimeDate';
 import Weather from './Weather';
 import './App.css';
 import Timer from './Timer';
-import { faClock, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import StickyNote from './StickyNote';
-import './StickyNote.css'
+import './StickyNote.css';
 import Keyboard from "react-simple-keyboard";
-import './keyboard.css'
-
-
+import './keyboard.css';
 
 function App() {
   const [isOn, setIsOn] = useState(true);
-
   const [placeholderText, setPlaceholderText] = useState('|');
   const [brightness, setBrightness] = useState(100);
   const [isSliderVisible, setIsSliderVisible] = useState(false);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
+  const [isTimerVisible, setIsTimerVisible] = useState(false);
+  const [isNotePanelVisible, setIsNotePanelVisible] = useState(false);
+  const [layoutName, setLayoutName] = useState('default');
+  const keyboard = useRef();
+
   const isAnyPanelOpen = () => {
     return isTimerVisible || isNotePanelVisible || isSliderVisible;
   };
-  const [isTimerVisible, setIsTimerVisible] = useState(false);
-  const [isNotePanelVisible, setIsNotePanelVisible] = useState(false);
 
   const toggleNotePanelVisibility = () => {
     if (isAnyPanelOpen() && !isNotePanelVisible) return;
     setIsNotePanelVisible(!isNotePanelVisible);
   };
-  const [layoutName, setLayoutName] = useState('default');
-  const keyboard = useRef();
 
   const handleShift = () => {
     setLayoutName(layoutName === 'default' ? 'shift' : 'default');
@@ -45,15 +42,6 @@ function App() {
   const onKeyPress = (button) => {
     if (button === "{shift}" || button === "{lock}") handleShift();
     if (button === "{ok}") handleAddNote();
-  };
-
-  const toggleKeyboardVisibility = () => {
-    setIsKeyboardVisible(!isKeyboardVisible);
-  };
-
-
-  const toggleNoteInputVisibility = () => {
-    setIsNoteInputVisible(!isNoteInputVisible);
   };
 
   const handleAddNote = () => {
@@ -71,6 +59,7 @@ function App() {
     if (isAnyPanelOpen() && !isTimerVisible) return;
     setIsTimerVisible(!isTimerVisible);
   };
+
   const togglePower = () => {
     setIsOn(prevIsOn => !prevIsOn);
     if (isOn) {
@@ -84,10 +73,12 @@ function App() {
     if (isAnyPanelOpen() && !isSliderVisible) return;
     setIsSliderVisible(!isSliderVisible);
   };
+
   const brightnessToHex = (value) => {
     const hex = Math.floor((value / 100) * 255).toString(16).padStart(2, '0');
     return `#${hex}${hex}00`;
   };
+
   const customLayout = {
     'default': [
       '` 1 2 3 4 5 6 7 8 9 0 - = {bksp}',
@@ -104,11 +95,13 @@ function App() {
       '{space}'
     ]
   };
+
   const newLayout = {
     ...customLayout,
     'default': customLayout.default.map(row => row.replace('{enter}', '{ok:OK}')),
     'shift': customLayout.shift.map(row => row.replace('{enter}', '{ok:OK}'))
   };
+
   useEffect(() => {
     const borderStyle = `
       body {
@@ -128,9 +121,7 @@ function App() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setPlaceholderText((prev) =>
-        prev.endsWith('|') ? '' : ' |'
-      );
+      setPlaceholderText((prev) => prev.endsWith('|') ? '' : ' |');
     }, 500);
     return () => clearInterval(intervalId);
   }, []);
@@ -167,15 +158,12 @@ function App() {
           zIndex: -1,
         }}
       />
-
-      {isOn ? (
+      {isOn && (
         <div className="top-section">
           <TimeDate />
           <Weather />
-
         </div>
-      ) : null}
-
+      )}
       <div className="controls-container">
         <div className="buttons-container">
           {isOn && (
@@ -186,10 +174,7 @@ function App() {
                 </button>
               </div>
               <div className="note-input-toggle-button-container">
-                <button
-                  onClick={toggleNotePanelVisibility}
-                  className="icon-button"
-                >
+                <button onClick={toggleNotePanelVisibility} className="icon-button">
                   <FontAwesomeIcon icon={faPlusCircle} />
                 </button>
               </div>
@@ -221,13 +206,13 @@ function App() {
           </div>
         </div>
         <Timer isTimerVisible={isTimerVisible} toggleTimerVisibility={toggleTimerVisibility} />
+
         {isNotePanelVisible && (
           <div className="note-keyboard-container">
             <input
               type="text"
               value={newNote}
               onChange={(e) => setNewNote(e.target.value)}
-
               className="note-input"
             />
             <div className="keyboard-container">
@@ -244,13 +229,12 @@ function App() {
                   '{tab}': 'Tab',
                   '{lock}': 'Caps',
                   '{shift}': 'Shift',
-
                 }}
               />
             </div>
-
           </div>
         )}
+
         <div className="notes-container">
           {notes.map((note, index) => (
             <StickyNote
@@ -263,12 +247,7 @@ function App() {
       </div>
     </div>
   );
-
-
-
-
-
-
 }
 
 export default App;
+
