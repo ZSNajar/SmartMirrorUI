@@ -5,13 +5,13 @@
     background-color: rgba(0, 153, 255, 0.219);
     padding: 10px;
     border-radius: 10px;
-    width: 150px;  /* Set a fixed width */
+    width: 150px; 
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .note-input-container input {
-    width: calc(100% - 20px); /* Full width minus padding */
+    width: calc(100% - 20px);
     padding: 5px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -28,6 +28,10 @@
     cursor: pointer;
     font-size: 1rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.note-input-container button:hover {
+    background-color: #147cb0d8;
 }
 
 .note-input-container button:hover {
